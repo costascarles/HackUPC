@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Hunt the Wumpus</title>
+
+        <meta charset="utf-8"/>
+        <meta name="description" content="In Hunt the Wumpus, the player is an adventurer entering a dungeon looking for a treasure. The goal of the adventurer is to find the treasure and get out of the dungeon avoiding the pits where he can fall in and the Wumpus: a monster who kills anyone it sees.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Fonts from Google Fonts-->
+        <!--Eczar-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;600;700;800&display=swap" rel="stylesheet"> 
+
+        <!--JavaScript-->
+        <!--Socketio-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!--jQuery-->
+        <script  src="https://code.jquery.com/jquery-3.7.0.min.js"  integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="  crossorigin="anonymous"></script>
+        <!--Feather Icons-->
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+        <!--main.js-->
+        <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+    </head>
+    <body>
+        <div class='main'>
+            <h1>Hello World!</h1>
+            <ul id="messages"></ul>
+            <input type="text" id="myMessage">
+            <button type="button" id="send" >SEND!!</button>
+        </div>
+        <script>
+            const socket = io();
+            socket.emit('message','hello');
+            $('#send').on("click",function(){
+                socket.send($('#myMessage').val());
+                $('#myMessage').val("")
+            })
+           
+
+        </script>
+        <div class='header'>
+            <div class='title'>
+                <a href='#'><h2>Hunt the Wumpus</h2></a>
+            </div>
+        
+        
+        
+
+        <div class='bottom'>
+            <p>Created by <em>your name here</em>, 2022</p>
+        </div>
+
+    </body>
+</html>
