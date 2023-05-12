@@ -1,0 +1,91 @@
+:root{
+    --Azuloscuro: RGB(17, 36, 105);
+    --Azulclaro: RGB(68, 138, 197);
+    --Rojo: RGB(208, 2, 27);
+    --Grisoscuro: RGB(67, 68, 69);
+    --Grisclaro: RGB(222, 223, 224);
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./Montserrat-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('./Nunito-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Pacifico';
+    src: url('./Pacifico-Regular.ttf');
+}
+
+body {
+    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-family: 'Nunito', sans-serif;
+    background-image: url('./pexels-shane-kell-1363794.jpg');
+    background-size: cover;
+}
+
+.landingPage {
+    margin:0;
+    height: 70vh;
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.landingPage h1{
+    margin-bottom: 5px;
+    font-size: 60px;
+    font-family: 'Nunito';
+}
+
+.landingPage h3{
+    margin-bottom: 5px;
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+#waitingPlayers{
+    animation: server-thinking 1s infinite;
+}
+
+@keyframes server-thinking {
+    0%{
+        content: "";
+    }
+    33%{
+        content: ".";
+    }
+    66%{
+        content: "..";
+    }
+    100%{
+        content: "...";
+    }
+}
+
+.landingPage table{  
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 50px;
+}
+
+.landingPage table td{
+    text-align: center;
+    font-style: bold;
+}
+
+#logoVueling{
+    width: 125px;
+    margin-top: 55px;
+}
+
