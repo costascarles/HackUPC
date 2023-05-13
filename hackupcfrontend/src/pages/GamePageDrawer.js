@@ -14,19 +14,28 @@ export default function GamePageDrawer() {
     const chatRef = useRef(null);
 
     useEffect(() => {
-      const room = localStorage.getItem('roomID');
-      setRoomID(room);
-      let getChat = async () =>{
-        let response = await axios.get(`http://${IP}:5000/room/${roomID}/missatges`);
-        if (response.data){
-          let momMessages = [];
-          for (let i =0; i< response.data.msg.length; i++){
-            momMessages.push([response.data.msg[i].player, response.data.msg[i].msg]);
-          }
-          setMessages(momMessages);
+      myInterval();
+        const room = localStorage.getItem('roomID');
+        setRoomID(room);
+    },[]);
+
+    const myInterval = () =>{
+      let interval = setInterval(()=>{
+        getChat();
+      },3500);
+    }
+
+    const getChat = async () =>{
+      let room = localStorage.getItem("roomID");
+      let response = await axios.get(`http://${IP}:5000/room/${room}/missatges`);
+      if (response.data){
+        let momMessages = [];
+        for (let i =0; i< response.data.mensajes.length; i++){
+          momMessages.push([response.data.mensajes[i].player, response.data.mensajes[i].msg]);
         }
+        setMessages(momMessages);
       }
-    },[messages]);
+    }
 
   return (
     <div className="GamePageDrawer">
@@ -42,7 +51,7 @@ export default function GamePageDrawer() {
       <div className='ChatSide'>
       <h1>Answers {roomID}</h1>
           {Object.entries(messages).map(([key, value]) => (
-            <h3>{key}: {value}</h3>
+            <h3>{value[0]}: {value[1]}</h3>
           ))}
       </div>
       
