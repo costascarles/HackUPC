@@ -4,6 +4,7 @@ from flask_cors import CORS
 import back.Partida as p
 import back.Lobby
 import back.Jugador as j
+import back.Mensaje as m
 import sqlite3
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
@@ -47,6 +48,27 @@ def get_room(room_id):
      # Aquí iría la lógica para obtener la información de la sala con el ID especificado
      return jsonify({'room_id': room_id, 'players': serialized_jugadores})
 
+@app.route('/room/<int:room_id>/missatges', methods=['POST'])
+def set_roomMsg(room_id):
+     mensajes = request.json['msg']
+     player= request.json['player']
+     for i in partidas:
+        if i.idRoom == room_id:            
+            i.msgs.append(m.Mensaje(player,mensajes))
+     
+     # Aquí iría la lógica para obtener la información de la sala con el ID especificado
+     return jsonify([{'status': "success", 'info': "Message Added"}])
+
+@app.route('/room/<int:room_id>/missatges', methods=['GET'])
+def get_roomMsg(room_id):
+     mensajes = []
+     for i in partidas:
+        if i.idRoom == room_id:            
+            mensajes=i.msgs
+     serialized_mensajes = [{"player": m.autor,"msg": m.contenido}for m in mensajes]
+     # Aquí iría la lógica para obtener la información de la sala con el ID especificado
+     return jsonify({'room_id': room_id, 'mensajes': serialized_mensajes})
+
 @app.route('/rooms', methods=['GET'])
 def get_all_rooms():
     # Aquí iría la lógica para obtener todas las salas
@@ -56,6 +78,29 @@ def get_all_rooms():
         rooms_list.append({'id':i.idRoom,'numPlayers':i.numPlayers})
 
     return jsonify(rooms_list)
+
+@app.route('/room/<int:room_id>/startRound', methods=['POST'])
+def set_round(room_id):   
+    for i in partidas:
+        if i.idRoom == room_id:
+            dibujante=i.select_drawer()    
+    return jsonify({"status":"success" ,"info": "Round Started" })
+
+@app.route('/room/<int:room_id>/check', methods=['POST'])
+def check_round(room_id): 
+    mensajes = request.json['msg']
+    player= request.json['player']  
+    for i in partidas:
+        if i.idRoom == room_id:
+            win,winer=i.check_status(mensajes,player)    
+    return jsonify({"status":"success" , "result": win, "winer": player })
+
+@app.route('/room/<int:room_id>/frase', methods=['GET'])
+def get_frase(room_id): 
+    for i in partidas:
+        if i.idRoom == room_id:
+            sent= i.winFrase    
+    return jsonify({"status":"success" , "frase": sent })
 
 @socketio.on('message')
 def handleMessage(msg):
