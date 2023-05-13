@@ -9,13 +9,10 @@ cursor = conexion.cursor()
 
 #Crea una tabla en la base de datos para almacenar los destinos. 
 # En este ejemplo, la tabla se llamará Destinos y tendrá cuatro columnas: nombre, pais, continente.
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS Destinos (
+cursor.execute('''CREATE TABLE IF NOT EXISTS Destinos (
         nombre TEXT PRIMARY KEY,
         pais TEXT,
-        continente TEXT
-    )
-''')
+        continente TEXT)''')
 
 conexion.commit()
 
