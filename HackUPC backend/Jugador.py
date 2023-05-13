@@ -3,6 +3,7 @@ class Jugador:
     def __init__(self, nombre):
         self.nombre = nombre
         self.puntuacion = 0
+        self.dibujar = False
         
     def sumar_puntos(self, puntos):
         self.puntuacion += puntos
@@ -14,4 +15,10 @@ class Jugador:
         print("Puntuaciones:")
         for jugador in jugadores:
             print(f"{jugador.nombre}: {jugador.puntuacion}")
+            
+    def activarDibujante(self):
+        self.dibujar = True
+        
+    def desactivarDibujante(self): 
+        self.dibujar = False
 
