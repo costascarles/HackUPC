@@ -10,3 +10,4 @@ class Partida:
     def mostrar_frases(self):
         for frase in self.frases:
             print(frase)
+            
