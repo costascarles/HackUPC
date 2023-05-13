@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8c246966.css",
+    "main.js": "/static/js/main.829b8351.js",
+    "static/media/pexels-shane-kell-1363794.jpg": "/static/media/pexels-shane-kell-1363794.11c0b5e3198f761eb9d4.jpg",
+    "static/media/Pacifico-Regular.ttf": "/static/media/Pacifico-Regular.7bdf9e5e21239393db89.ttf",
+    "static/media/Nunito-Regular.ttf": "/static/media/Nunito-Regular.ecb051cfab7da456b69f.ttf",
+    "static/media/Montserrat-Regular.ttf": "/static/media/Montserrat-Regular.94bb495fba6077f669ed.ttf",
+    "static/media/Logo_Vueling.svg.png": "/static/media/Logo_Vueling.svg.2ef26204aded341b2f46.png",
+    "index.html": "/index.html",
+    "main.8c246966.css.map": "/static/css/main.8c246966.css.map",
+    "main.829b8351.js.map": "/static/js/main.829b8351.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8c246966.css",
+    "static/js/main.829b8351.js"
+  ]
+}
