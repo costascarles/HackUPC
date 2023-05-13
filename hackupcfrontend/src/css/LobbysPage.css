@@ -1,0 +1,54 @@
+.lobbysPage{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nunito', sans-serif;
+    align-items: center;
+}
+
+.inputName{
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 40px;
+    background-color: transparent;
+    text-align: center;
+    align-items: top;
+    font-family: 'Nunito', sans-serif;
+}
+
+.inputName::placeholder{
+    font-family: '', sans-serif;
+    color: black;
+    font-size: 25px;
+    background-color: transparent;
+    font-family: 'Nunito', sans-serif;
+}
+
+.inputName:hover{
+    cursor: pointer;
+    border:none;
+    background-color: transparent;
+}
+
+.lobbysList{
+    display: flex;
+    flex-direction: row;
+}
+
+.lobbysPage button{
+    background-color: transparent;
+    margin: 40px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 15px;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    font-style: bold;
+    width: 150px;
+}
+#logoVueling{
+    width: 125px;
+    margin-top: 55px;
+    
+}
