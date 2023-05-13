@@ -3,7 +3,6 @@ class Partida:
     def __init__(self, lobby):
         self.lobby = lobby
         self.frases = []
-        self.existePartida = True
         
     def agregar_frase(self, frase):
         self.frases.append(frase)
@@ -12,5 +11,3 @@ class Partida:
         for frase in self.frases:
             print(frase)
             
-    def finalizarPartida(self):
-        self.existePartida = False

@@ -1,11 +1,12 @@
 import sqlite3
 import random
+from flask import Flask, jsonify, request
 from Jugador import Jugador
 from Lobby import Lobby
 from Mensaje import Mensaje
 from Partida import Partida
-from flask import Flask, jsonify, request
 from Game import Game
+import time
 
 app = Flask(__name__)
 
@@ -26,8 +27,8 @@ cursor.execute('SELECT * FROM Destinos WHERE nombre=?', (nombre_destino,))
 resultados = cursor.fetchall()
 
 # Mostrar los resultados
-for resultado in resultados:
-    print(resultado)
+#for resultado in resultados:
+ #   print(resultado)
 
 # Cerrar la conexión
 conexion.close()
@@ -58,61 +59,81 @@ for tupla in resultados:
     mensajes_completo.append(tupla[1].format(nombre_destino))
     print(tupla[1].format(nombre_destino))
 
-# Pedimos al usuario que ingrese el número de jugadores que quiere crear
-num_jugadores = int(input("Ingrese el número de jugadores a crear: "))
 
-# Creamos una lista vacía para almacenar los objetos de la clase Jugador
-jugadores = []
+while True:
+    # Pedimos al usuario que ingrese el número de jugadores que quiere crear
+    num_jugadores = int(input("Enter the number of players to create: "))
 
-#Creamos el lobby
-lobby = Lobby()
+    # Creamos una lista vacía para almacenar los objetos de la clase Jugador
+    jugadores = []
 
-# Iteramos la cantidad de veces que se especificó para crear un jugador en cada iteración
-for i in range(num_jugadores):
-    # Pedimos al usuario que ingrese el nombre del jugador
-    nombre = input(f"Ingrese el nombre del jugador {i+1}: ")
-    # Creamos un objeto de la clase Jugador con el nombre ingresado
-    jugador = Jugador(nombre)
-    # Agregamos el objeto a la lista de jugadores
-    jugadores.append(jugador)
+    # Iteramos la cantidad de veces que se especificó para crear un jugador en cada iteración
+    for i in range(num_jugadores):
+        # Pedimos al usuario que ingrese el nombre del jugador
+        nombre = input(f"Ingrese el nombre del jugador {i+1}: ")
+        # Creamos un objeto de la clase Jugador con el nombre ingresado
+        jugador = Jugador(nombre)
+        # Agregamos el objeto a la lista de jugadores
+        jugadores.append(jugador)
 
-# Mostramos los nombres de los jugadores creados
-print("Jugadores creados:")
-for jugador in jugadores:
-    lobby.agregar_jugador(jugador)
-    print(jugador.nombre)
-    
-jugador_aleatorio = random.choice(jugadores)
-jugador_aleatorio.activarDibujante()
-print(jugador_aleatorio.nombre)
+    # Mostramos los nombres de los jugadores creados
+    print("Jugadores creados:")
+    for jugador in jugadores:
+        print(jugador.nombre)
 
-for jugador in jugadores:
-    if(jugador.nombre != jugador_aleatorio.nombre):
-        jugador.desactivarDibujante()
+    bPartidaFinalizada = False
+    bExisteJugadores = True
+
+    #Comenzamos el bucle para la partida con las rondas que tendrá
+    #Partida
+
+    while bPartidaFinalizada == False and bExisteJugadores == True:
+        #Ronda
         
-
-#Control de los mensajes
-# Endpoint para solicitudes GET
-#@app.route('/saludo', methods=['GET'])
-#def saludar():
-    #mensaje = request.args.get('mensaje')  # Obtenemos el valor del parámetro "nombre"
+        #Asignamos uno de los jugadores creados como el dibujante
+        jugador_aleatorio = random.choice(jugadores)
+        jugador_aleatorio.activarDibujante()
+        
+        #Este jugador es el dibujante en esta ronda
+        print("Le toca dibujar a: " + jugador_aleatorio.nombre)    
+        
+        #Desactivamos el dibujante para los otros jugadores
+        for jugador in jugadores:
+            if(jugador.nombre != jugador_aleatorio.nombre):
+                jugador.desactivarDibujante()
+        
+        mensajeDibujante = input("Mensaje a completar del dibujante: ")
+        
+        #fraseAleatoria = random.choice(mensajes_completo)
+        lobby = Lobby(jugadores,mensajeDibujante)
+        
+        #Empezamos el timer
+        inicio = time.time()
+        
+        bTiempoFinalizado = False
+        bRespuestaCorrecta = False
+        
+        while bTiempoFinalizado == False and bRespuestaCorrecta == False: 
+            
+            tiempo_transcurrido = time.time() - inicio
+            #print(tiempo_transcurrido)
+            if(tiempo_transcurrido >= 30):
+                bTiempoFinalizado = True
+                    
+            mensajeUser = "Hola"
+            
+            
+            jugadorMensaje = jugadores[1]
+            
+            mensaje = Mensaje(jugadorMensaje, mensajeUser)            
+            
+            bRespuestaCorrecta = lobby.enviar_mensaje(mensaje,jugadorMensaje, tiempo_transcurrido)
+            print(bRespuestaCorrecta)
+            time.sleep(3)
+            
+            
+            
     
-mensaje = Mensaje("Eric", "texto")
-
-lobby.enviar_mensaje(mensaje)
-
-#Creamos la partida
-partida = Partida(lobby)
-
-for mensaje in mensajes_completo:
-    partida.agregar_frase(mensaje)
-    
- 
-game = Game(partida) 
-#game.agregar_partida(partida)
-#Falta hacer comprobaciones para cuando no haya partida, eliminar el game.   
-partida2 = Partida(lobby)
-game.agregar_partida(partida2)
 
 
     

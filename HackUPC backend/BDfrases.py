@@ -16,14 +16,15 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS frases
 conexion.commit()
 
 #Inserta los destinos en la tabla utilizando la sentencia INSERT INTO.
-frases = [
-    "Me encantaría visitar {} algún día",
-    "No puedo esperar para conocer {}",
-    "El próximo destino en mi lista de viajes es {}",
-    "{} es un lugar hermoso para visitar",
-    "¿Alguien ha estado en {} antes?",
-    "Nunca he estado en {} antes, ¡pero quiero ir!",
-    "{} está en mi lista de deseos de viaje"
+frases = [    
+    "In {}, I'm going to ",
+    "I can't wait to visit in {}",
+    "I plan to spend my days in {}",
+    "I'm excited to go in {}",
+    "I want to go on a in {}",
+    "I'm looking forward to trying in {}",
+    "I would love to visit in {}",
+    "I can't wait to see in {}",
 ]
 
 cursor.executemany('INSERT INTO frases (frase) VALUES (?)', [(frase,) for frase in frases])
