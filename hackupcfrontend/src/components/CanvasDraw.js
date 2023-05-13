@@ -9,6 +9,21 @@ export default function CanvasDraw() {
     const canvasRef = useRef(null);
     const ctx = useRef(null);
     const [cursor, setCursor] = useState("default");
+
+    const handleSendImage = () => {
+      const canvas = canvasRef.current;
+      const image = canvas.toDataURL();
+      return image;
+      // Convierte el contenido del canvas a una imagen en formato de datos de URL
+      // Aquí puedes enviar la imagen al servidor o utilizarla en una etiqueta de imagen
+    };
+
+    useEffect(()=>{
+      setTimeout(()=>{
+        let image = handleSendImage();
+        
+      },1000);
+    },[])
   
     useEffect(() => {
       const canvas = canvasRef.current;

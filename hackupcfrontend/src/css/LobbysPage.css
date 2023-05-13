@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     font-family: 'Nunito', sans-serif;
+    align-items: center;
 }
 
 .inputName{
@@ -31,7 +32,7 @@
 
 .lobbysList{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .lobbysPage button{
@@ -44,4 +45,10 @@
     justify-content: center;
     font-family: 'Nunito', sans-serif;
     font-style: bold;
+    width: 150px;
+}
+#logoVueling{
+    width: 125px;
+    margin-top: 55px;
+    
 }

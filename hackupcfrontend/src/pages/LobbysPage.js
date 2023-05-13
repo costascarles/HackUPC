@@ -3,6 +3,8 @@ import axios from 'axios';
 import Lobby from '../components/Lobby';
 import '../css/LobbysPage.css';
 import { useNavigate  } from 'react-router-dom';
+import vuelingLogo from '../styles/Logo_Vueling.svg.png';
+import IP from '../ip';
 
 export default function LobbysPage() {
 
@@ -18,24 +20,26 @@ export default function LobbysPage() {
     const handleCreateRoom = async () =>{
         if (username != "" && username !== "Write your username"){
             try {
-                let response = await axios.post("http://192.168.137.220:5000/connect", {
-                    username: username,
-                    room: '0'
+                let response = await axios.post(`http://${IP}:5000/connect`, {
+                    'username': username,
+                    'room': 0
                 });
-                if (response.data.succes){
+                if (response.data){
+                    localStorage.setItem('roomID', 1);
+                    localStorage.setItem('username', username);
                     navigation("/landing");
                 }
             } catch (error){
-                alert("NEIN");
+                alert(error.message);
             }
         }
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         let getLobbys = async () =>{
             try{
-                let response = await axios.get("http://192.168.137.220:5000/rooms");
-                if (response) {
+                let response = await axios.get(`http://${IP}:5000/rooms`);
+                if (response.data) {
                     setLobbys(response.data);
                     console.log(response.data);
                 }
@@ -53,18 +57,21 @@ export default function LobbysPage() {
     }, [username]);
 
 
-    const handleClick = async (e, lobbyID, numPlayers) => {
+    const handleClick = async (e,lobbyID, numPlayers) => {
         if (numPlayers != 8 && username != "" && username !== "Write your username"){
             try {
-                let response = await axios.post("http://192.168.137.220:5000/connect", {
+                let response = await axios.post(`http://${IP}:5000/connect`, {
                     username: username,
                     room: lobbyID
                 });
-                if (response.data.succes){
+                alert(lobbyID);
+                if (response.data){
+                    localStorage.setItem('roomID', lobbyID);
+                    localStorage.setItem('username', username);
                     navigation("/landing");
                 }
             } catch (error){
-                alert("NEIN");
+                alert(error.message);
             }
         }
     }
@@ -75,17 +82,14 @@ export default function LobbysPage() {
         <div className='lobbysList'>
         {
             lobbys.map((lobby) => (
-                <Lobby key={lobby.id} name={lobby.id} numPlayers={lobby.numPlayers} onClick={(e) => handleClick()} />
+                <div key={lobby.id} onClick={e => handleClick(e, lobby.id, lobby.numPlayers)}>
+                    <Lobby name={lobby.id} numPlayers={lobby.numPlayers}/>
+                </div>
             ))
         }
         </div>
-        {
-            lobbys.length == 0 && (
-                <>
-                    <button onClick={(e) => handleCreateRoom(e)}>Create Room</button>
-                </>
-            )
-        }
+            <button onClick={(e) => handleCreateRoom(e)}>Create Room</button>
+            <img src={vuelingLogo} id='logoVueling'/>
     </div>
   )
 }
