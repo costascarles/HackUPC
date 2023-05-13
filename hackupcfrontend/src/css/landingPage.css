@@ -8,17 +8,17 @@
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('./Montserrat-Regular.ttf');
+    src: url('../styles/Montserrat-Regular.ttf');
 }
 
 @font-face {
     font-family: 'Nunito';
-    src: url('./Nunito-Regular.ttf');
+    src: url('../styles/Nunito-Regular.ttf');
 }
 
 @font-face {
     font-family: 'Pacifico';
-    src: url('./Pacifico-Regular.ttf');
+    src: url('../styles/Pacifico-Regular.ttf');
 }
 
 body {
@@ -29,7 +29,7 @@ body {
     align-items: center;
     display: flex;
     font-family: 'Nunito', sans-serif;
-    background-image: url('./pexels-shane-kell-1363794.jpg');
+    background-image: url('../styles/pexels-shane-kell-1363794.jpg');
     background-size: cover;
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import axios from 'axios';
-import '../styles/landingPage.css';
+//import axios from 'axios';
+import '../css/landingPage.css';
 import vuelingLogo from '../styles/Logo_Vueling.svg.png';
 
 import { useState, useEffect } from 'react';
