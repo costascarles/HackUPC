@@ -11,6 +11,7 @@ export default function LobbysPage() {
     const [username, setUsername] = useState("Write your username");
     const [lobbys, setLobbys] = useState([]);
     const navigation = useNavigate();
+    const [counterRoom, setCounterRoom] = useState();
 
     const handleUser = async (e) => {
         setUsername(e.target.value);
@@ -22,10 +23,10 @@ export default function LobbysPage() {
             try {
                 let response = await axios.post(`http://${IP}:5000/connect`, {
                     'username': username,
-                    'room': 0
+                    'room': -1
                 });
                 if (response.data){
-                    localStorage.setItem('roomID', 1);
+                    localStorage.setItem('roomID', counterRoom);
                     localStorage.setItem('username', username);
                     navigation("/landing");
                 }
@@ -36,18 +37,24 @@ export default function LobbysPage() {
     }
 
     useEffect(() => {
-        let getLobbys = async () =>{
-            try{
-                let response = await axios.get(`http://${IP}:5000/rooms`);
-                if (response.data) {
-                    setLobbys(response.data);
-                    console.log(response.data);
+        setInterval(()=>{
+            let getLobbys = async () =>{
+                try{
+                    let response = await axios.get(`http://${IP}:5000/rooms`);
+                    if (response.data) {
+                        setLobbys(response.data);
+                        //console.log(response.data);
+                        console.log(response.data.length);
+                        setCounterRoom(response.data.length);
+                        //console.log("CounterRoom " + response.length);
+                    }
+                } catch {
+                    alert("RIP");
                 }
-            } catch {
-                alert("RIP");
             }
-        }
-        getLobbys();
+            getLobbys();
+        },5000);
+        
     }, []);
 
     useEffect(()=>{
@@ -64,7 +71,6 @@ export default function LobbysPage() {
                     username: username,
                     room: lobbyID
                 });
-                alert(lobbyID);
                 if (response.data){
                     localStorage.setItem('roomID', lobbyID);
                     localStorage.setItem('username', username);

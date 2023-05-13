@@ -19,42 +19,64 @@ export default function LandingPage() {
 
   }
 
+
+  const getFrase = async (inter) =>{
+    let room = localStorage.getItem('roomID');
+    let frase = await axios.get(`http://${IP}:5000/room/${room}/frase`);
+    if (frase.data.frase != ""){
+      clearInterval(inter);
+      let response2 = await axios.get(`http://${IP}:5000/room/${room}`);
+      
+      let pl = response2.data.players;
+      let drawer = false;
+      
+      for (let i = 0; i<pl.length; i++){
+        if (pl[i].dibujar == true && pl[i].nombre == localStorage.getItem('username')){
+          drawer = true;
+          navigation("/selectionFrase");
+        }
+        }
+        if (drawer == false){
+          navigation("/gameAnswer")
+        }
+    }
+  }
+
   
   const handleGame = async () => {
     let response = await axios.post(`http://${IP}:5000/room/${roomID}/selectDrawer`,{
       'room_id': roomID
     });
+    }
 
-    let response2 = await axios.get(`http://${IP}:5000/room/${roomID}`);
-    let pl = response2.data.players
-    for (let i = 0; i<pl.length; i++){
-      if (pl.dibujar == true && pl.nombre == localStorage.getItem('username')){
-        navigation("/selectionFrase");
-      } else {
-        navigation("/gameAnswer");
-      }
-    }   
-  }
+  const apiCalls = async () => {
+    const myInterval = setInterval(async ()=>{
+      await getPlayers();
+      await getFrase(myInterval);
+    },5000);
+    
+  } 
 
-  useEffect(() => {
+  const getPlayers = async () => {
     const room = localStorage.getItem('roomID');
     setRoomID(room);
-    let getPlayers = async () => {
-      try {
-        let response = await axios.get(`http://${IP}:5000/room/${room}`);
-        if (response.data) {
-          setPlayers(response.data.players);
-          console.log(response.data);
-          setRendered(true);
-        }
-      } catch (error){
-        //stuff
+    try {
+      let response = await axios.get(`http://${IP}:5000/room/${room}`);
+      if (response.data) {
+        setPlayers(response.data.players);
+        console.log(response.data);
+        setRendered(true);
+        console.log("a");
       }
+    } catch (error){
     }
-    setTimeout(async ()=>{
-      await getPlayers();
-    },5000);
-  }, []);
+  }
+  
+
+  useEffect(() => {
+    getPlayers();
+    apiCalls();
+  },[]);
 
   useEffect(()=>{
     setTimeout("",1000);
@@ -65,8 +87,7 @@ export default function LandingPage() {
         setWaiting("Waiting for players");
       }
     }, 700);
-  })
-
+  });
 
   return (
     <div className='landingPage'>
@@ -103,3 +124,4 @@ export default function LandingPage() {
     </div>
   )
 }
+

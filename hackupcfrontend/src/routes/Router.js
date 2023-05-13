@@ -13,7 +13,7 @@ export default function Router() {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path='/' element={<LandingPage/>}></Route>
+            <Route path='/' element={<LobbysPage/>}></Route>
             <Route path='/landing' element={<LandingPage />} ></Route>
             <Route path='/gameDrawer' element={<GamePageDrawer/>}></Route>
             <Route path='/gameAnswer' element={<GamePageAnswer/>}></Route>
@@ -21,6 +21,8 @@ export default function Router() {
             <Route path='/winners' element={<WinnersPage/>}></Route>
             <Route path='/lobbys' element={<LobbysPage/>}></Route>
             <Route path='/selectionFrase' element={<SelectionFrase/>}></Route>
+
+            <Route path="*" element={<LobbysPage/>}></Route>
         </Routes>
     </BrowserRouter>
   )

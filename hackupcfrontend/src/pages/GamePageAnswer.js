@@ -44,6 +44,7 @@ export default function GamePageDrawer() {
           {Object.entries(messages).map(([key, value]) => (
             <h3>{key}: {value}</h3>
           ))}
+          <input placeholder='Write your guess' one/>
       </div>
       
     </div>
