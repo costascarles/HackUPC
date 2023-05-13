@@ -1,3 +1,4 @@
+import random
 from flask import Flask, render_template, send_from_directory, request,jsonify
 from flask_socketio import SocketIO, send
 from flask_cors import CORS
@@ -24,6 +25,7 @@ def connect():
     username = request.json['username']
     room = request.json['room']
     isCreated= False
+    
     for i in partidas:
         if i.idRoom == room:
             jugador_añadir = j.Jugador(username)
@@ -32,9 +34,9 @@ def connect():
     
     if isCreated == False:
         if len(partidas)==0:
-            partidas.append(p.Partida(0,j.Jugador(username),"Frase"))
+            partidas.append(p.Partida(0,j.Jugador(username),getFrase()))
         else:
-            partidas.append(p.Partida(len(partidas)+1,j.Jugador(username),"Frase"))
+            partidas.append(p.Partida(len(partidas)+1,j.Jugador(username),getFrase()))
     
     return jsonify([{'status': "success", 'info': "User Added"}])
     
@@ -79,11 +81,19 @@ def get_all_rooms():
 
     return jsonify(rooms_list)
 
-@app.route('/room/<int:room_id>/startRound', methods=['POST'])
+@app.route('/room/<int:room_id>/selectDrawer', methods=['POST'])
 def set_round(room_id):   
     for i in partidas:
         if i.idRoom == room_id:
             dibujante=i.select_drawer()    
+    return jsonify({"status":"success" ,"info": "Player Selected" })
+
+@app.route('/room/<int:room_id>/fixFrase', methods=['POST'])
+def set_FraseRound(room_id):   
+    text = request.json['text']
+    for i in partidas:
+        if i.idRoom == room_id:
+            sentence=i.complete_sentence(text)    
     return jsonify({"status":"success" ,"info": "Round Started" })
 
 @app.route('/room/<int:room_id>/check', methods=['POST'])
@@ -102,10 +112,61 @@ def get_frase(room_id):
             sent= i.winFrase    
     return jsonify({"status":"success" , "frase": sent })
 
+
 @socketio.on('message')
 def handleMessage(msg):
     print("Message: "+msg)
 
+def getFrase():
+    #Creamos el array con los destinos 
+    # Conectar a la base de datos de destinos
+    conexion = sqlite3.connect('destinos.db')
+
+    # Crear un cursor
+    cursor = conexion.cursor()
+
+    # Definimos el nombre del destino que queremos buscar
+    #nombre_destino = city
+
+    # Ejecutamos la consulta con un WHERE para buscar el destino por nombre
+    cursor.execute('SELECT * FROM Destinos ')
+
+    # Obtener los resultados
+    ALLresultados = cursor.fetchall()
+    city = random.choice(ALLresultados)[0]
+    # Mostrar los resultados
+    #for resultado in resultados:
+    #   print(resultado)
+
+    # Cerrar la conexión
+    conexion.close()
+
+
+    #Conectar a la base de datos de frases
+    conexion = sqlite3.connect('frases.db')
+
+    # Crear un cursor
+    cursor = conexion.cursor()
+
+    # Realizar la consulta SELECT
+    cursor.execute('SELECT * FROM Frases')
+
+    # Obtener los resultados
+    resultados = cursor.fetchall()
+
+    # Mostrar los resultados
+    #for resultado in resultados:
+        #print(resultado)
+
+    # Cerrar la conexión
+    conexion.close()
+
+    mensajes_completo = []
+
+    for tupla in resultados:
+        mensajes_completo.append(tupla[1].format(city))
+        print(tupla[1].format(city))
+    return mensajes_completo
 if __name__=='__main__':
     socketio.run(app, host='0.0.0.0')
     rooms = [{'id': '1', 'numPlayers': '0'},{'id': '2', 'numPlayers': '0'},{'id': '3', 'numPlayers': '0'},{'id': '4', 'numPlayers': '0'}]

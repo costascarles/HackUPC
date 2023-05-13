@@ -33,12 +33,14 @@ class Partida:
         self.players
         player = random.choice(self.players)
         player.activarDibujante()
+        self.timeStampEnd=0
+        self.timeStampStart=0
         self.winFrase = random.choice(self.frases)
-        self.timeStampStart = datetime.timestamp(datetime.now())
         return player
-    def complete_sentence(self, destino,extraText):              
-        self.winFrase[1].format(destino)
+    
+    def complete_sentence(self,extraText):              
         self.winFrase +=extraText
+        self.timeStampStart = datetime.timestamp(datetime.now())
             
     def check_status(self,frase,player):
         win = False
@@ -48,7 +50,7 @@ class Partida:
             win = True
             for i in self.players:
                 if i.nombre == player:
-                    i.puntuacion+= ((len(self.players)-1)*0.05 + 1) - (self.timeStampEnd -self.timeStampStart)/100
+                    i.puntuacion+= ((len(self.players)-1)*0.05 + 1) - (self.timeStampEnd -self.timeStampStart)
                 if i.dibujar == True:
                     i.desactivarDibujante()
         
