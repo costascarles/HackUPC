@@ -6,6 +6,7 @@ import LandingPage from '../pages/LandingPage';
 import WinnersPage from '../pages/WinnersPage';
 import GamePageAnswer from '../pages/GamePageAnswer'
 import GamePageDrawer from '../pages/GamePageDrawer';
+import LobbysPage from '../pages/LobbysPage';
 
 export default function Router() {
   return (
@@ -17,6 +18,7 @@ export default function Router() {
             <Route path='/gameAnswer' element={<GamePageAnswer/>}></Route>
             <Route path='/status' element={<GameStatusPage/>}></Route>
             <Route path='/winners' element={<WinnersPage/>}></Route>
+            <Route path='/lobbys' element={<LobbysPage/>}></Route>
         </Routes>
     </BrowserRouter>
   )

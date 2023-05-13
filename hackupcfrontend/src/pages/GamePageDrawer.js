@@ -26,9 +26,9 @@ export default function GamePageDrawer() {
       </div>
 
       <div className='ChatSide'>
-        {Object.entries(messages).map(([key, value]) => (
-          <h3>{key}: {value}</h3>
-        ))}
+          {Object.entries(messages).map(([key, value]) => (
+            <h3>{key}: {value}</h3>
+          ))}
       </div>
       
     </div>

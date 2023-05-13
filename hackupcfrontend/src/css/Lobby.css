@@ -1,0 +1,11 @@
+
+.Lobby{
+    background-color: transparent;
+    padding: 20px;
+    border: 1px solid black;
+    margin: 50px;
+}
+
+.Lobby:hover{
+    cursor:pointer;
+}
