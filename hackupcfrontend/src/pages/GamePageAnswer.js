@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import CanvasDraw from '../components/CanvasDraw';
-import '../css/GamePageDrawer.css';
+import CanvasNotDraw from '../components/CanvasNotDraw';
+import '../css/GamePageAnswer.css';
 import axios from 'axios';
 import IP from '../ip';
 
@@ -12,7 +12,20 @@ export default function GamePageDrawer() {
     const [roomID, setRoomID] = useState();
     const [inputValue, setInputValue] = useState('');
 
+    const [reloadHack,setReloadHack] = useState(true)
+
+    setInterval(()=>{
+      console.log("did setintervl");
+      setReloadHack(false);
+      setReloadHack(true)
+    },1000)
+
     const chatRef = useRef(null);
+  
+    
+    const getCanva = async () =>{
+
+    }
 
     const handleKeyPress = async (event) => {
       let room = localStorage.getItem("roomID");
@@ -61,9 +74,11 @@ export default function GamePageDrawer() {
     <div className="GamePageDrawer">
       <div className="BoxSide">
       <h1>{frase}</h1>
+      {reloadHack ? 
         <div id="Canvas">
-          <CanvasDraw/>
-        </div>
+          <CanvasNotDraw/>
+        </div> : null
+        }
 
         <h3>Drawing player: {player}</h3>
       </div>

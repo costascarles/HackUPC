@@ -1,0 +1,50 @@
+ const [url, setUrl] = useState("")
+
+    const getImg = () => {
+
+  //const canvasRef = useRef(null);
+  //const imageRef = useRef(null);
+
+  /*
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    const image = new Image();
+
+    image.onload = () => {
+      context.drawImage(image, 0, 0);
+    }
+    image.src = response.data;
+  }, []);
+  */
+ 
+
+  let room = localStorage.getItem("roomID");
+    const FormData = require('form-data');
+    let data = new FormData();
+    data.append('image_data', "");
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: `http://${IP}:5000/room/${room}/getImg`
+    };
+    
+   axios.request(config).then((response) => {
+      console.log("ok")
+    
+      const blob = new Blob([response.data], { type: 'image/png' });
+  
+      // Create a URL for the Blob
+      const testUrl = URL.createObjectURL(blob);
+      setUrl(testUrl)
+    
+    // Convert the decoded image data to a Blob
+   // setUrl(testUrl)
+    //console.log(response.config.url);
+    console.log({url});
+    }).catch((error) => {
+    console.log(error);});
+    
+
+  }
+getImg()

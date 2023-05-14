@@ -6,7 +6,7 @@ import IP from '../ip';
 
 export default function GamePageDrawer() {
 
-    const [frase, setFrase] = useState("When I arrive at Londres, I will...");
+    const [frase, setFrase] = useState(localStorage.getItem("frase"));
     const [player, setPlayer] = useState("Jorge");
     const [messages, setMessages] = useState([]);
     const [roomID, setRoomID] = useState();

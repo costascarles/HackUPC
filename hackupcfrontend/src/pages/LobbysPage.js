@@ -31,7 +31,7 @@ export default function LobbysPage() {
                     navigation("/landing");
                 }
             } catch (error){
-                alert(error.message);
+                console.log(error.message);
             }
         }
     }
@@ -48,8 +48,8 @@ export default function LobbysPage() {
                         setCounterRoom(response.data.length);
                         //console.log("CounterRoom " + response.length);
                     }
-                } catch {
-                    alert("RIP");
+                } catch (error){
+                    console.log(error);
                 }
             }
             getLobbys();
@@ -77,7 +77,7 @@ export default function LobbysPage() {
                     navigation("/landing");
                 }
             } catch (error){
-                alert(error.message);
+                console.log(error);
             }
         }
     }

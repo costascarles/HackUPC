@@ -1,5 +1,7 @@
 import '../css/CanvasDraw.css';
 import React, { useRef, useState, useEffect } from "react";
+import IP from '../ip';
+import axios from 'axios';
 
 
 export default function CanvasDraw() {
@@ -12,17 +14,35 @@ export default function CanvasDraw() {
 
     const handleSendImage = () => {
       const canvas = canvasRef.current;
-      const image = canvas.toDataURL();
+      const image = canvas.toDataURL('image/png');
       return image;
+    
       // Convierte el contenido del canvas a una imagen en formato de datos de URL
       // Aquí puedes enviar la imagen al servidor o utilizarla en una etiqueta de imagen
     };
 
+
     useEffect(()=>{
-      setTimeout(()=>{
+      let room = localStorage.getItem("roomID");
+      setInterval(async ()=>{
         let image = handleSendImage();
-        
-      },1000);
+        console.log(image);
+        let data = new FormData();
+        let config = {
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: `http://${IP}:5000/room/${room}/postImg`,
+          
+          data : data
+        };
+        data.append('image_data', image);
+        let response = axios.request(config).then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },2000);
     },[])
   
     useEffect(() => {
