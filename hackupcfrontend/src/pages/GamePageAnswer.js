@@ -64,9 +64,8 @@ export default function GamePageDrawer() {
 
 
     useEffect(() => {
-
+      let room = localStorage.getItem('roomID');
       myInterval();
-        const room = localStorage.getItem('roomID');
         setRoomID(room);
     },[]);
 
@@ -79,8 +78,6 @@ export default function GamePageDrawer() {
           <CanvasNotDraw/>
         </div> : null
         }
-
-        <h3>Drawing player: {player}</h3>
       </div>
 
       <div className='ChatSide'>
@@ -90,7 +87,6 @@ export default function GamePageDrawer() {
           ))}
           <input placeholder='Write your guess' value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyUp={(e) => handleKeyPress(e)}/>
       </div>
-      
     </div>
   )
 }

@@ -24,7 +24,7 @@ export default function LandingPage() {
     let room = localStorage.getItem('roomID');
     let frase = await axios.get(`http://${IP}:5000/room/${room}/frase`);
     if (frase.data.frase != ""){
-      localStorage.setItem("frase", frase);
+      localStorage.setItem("frase", frase.data.frase);
       clearInterval(inter);
       let response2 = await axios.get(`http://${IP}:5000/room/${room}`);
       

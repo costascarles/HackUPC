@@ -1,4 +1,4 @@
-
+/*
 .Lobby{
     background-color: transparent;
     padding: 20px;
@@ -8,4 +8,20 @@
 
 .Lobby:hover{
     cursor:pointer;
+}
+*/
+.Lobby{
+    background-color: rgba(255,255,255,0.2);
+    padding: 20px;
+    border: 1px solid transparent;
+    box-shadow: 0 7px 30 rgba(62,9,11,3);
+    border-radius: 40px;
+    margin: 50px;
+    transition: transform 0.6s ease-in-out;
+}
+
+.Lobby:hover{
+    cursor:pointer;
+    background-color: rgba(255,255,255,0.6);
+    transform:scale3d(1.05,1.05,1.05);
 }

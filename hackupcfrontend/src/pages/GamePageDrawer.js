@@ -44,8 +44,6 @@ export default function GamePageDrawer() {
         <div id="Canvas">
           <CanvasDraw/>
         </div>
-
-        <h3>Drawing player: {player}</h3>
       </div>
 
       <div className='ChatSide'>
