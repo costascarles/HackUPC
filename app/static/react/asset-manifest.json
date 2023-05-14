@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/react/static/css/main.b4d7863b.css",
-    "main.js": "/static/react/static/js/main.8e905644.js",
+    "main.css": "/static/react/static/css/main.3721472f.css",
+    "main.js": "/static/react/static/js/main.79859b78.js",
     "static/media/pexels-shane-kell-1363794.jpg": "/static/react/static/media/pexels-shane-kell-1363794.11c0b5e3198f761eb9d4.jpg",
     "static/media/Pacifico-Regular.ttf": "/static/react/static/media/Pacifico-Regular.7bdf9e5e21239393db89.ttf",
     "static/media/Nunito-Regular.ttf": "/static/react/static/media/Nunito-Regular.ecb051cfab7da456b69f.ttf",
     "static/media/Montserrat-Regular.ttf": "/static/react/static/media/Montserrat-Regular.94bb495fba6077f669ed.ttf",
     "static/media/Logo_Vueling.svg.png": "/static/react/static/media/Logo_Vueling.svg.2ef26204aded341b2f46.png",
     "../../templates/index.html": "/static/react/../../templates/index.html",
-    "main.b4d7863b.css.map": "/static/react/static/css/main.b4d7863b.css.map",
-    "main.8e905644.js.map": "/static/react/static/js/main.8e905644.js.map"
+    "main.3721472f.css.map": "/static/react/static/css/main.3721472f.css.map",
+    "main.79859b78.js.map": "/static/react/static/js/main.79859b78.js.map"
   },
   "entrypoints": [
-    "static/css/main.b4d7863b.css",
-    "static/js/main.8e905644.js"
+    "static/css/main.3721472f.css",
+    "static/js/main.79859b78.js"
   ]
 }
